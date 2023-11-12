@@ -5,7 +5,15 @@ import 'modern-normalize';
 export const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
     scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
   }
 
   body {
@@ -17,6 +25,8 @@ export const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
 
     font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,

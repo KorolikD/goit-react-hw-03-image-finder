@@ -1,5 +1,6 @@
 import React from 'react';
+import { GalleryList } from './ImageGallery.styled';
 
 export const ImageGallery = () => (
-  <ul class="gallery">{/* Набір <li> із зображеннями */}</ul>
+  <GalleryList>{/* Набір <li> із зображеннями */}</GalleryList>
 );

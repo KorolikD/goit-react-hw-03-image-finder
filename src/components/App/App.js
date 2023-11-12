@@ -1,5 +1,6 @@
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { GlobalStyles } from 'styles';
+import { Wraper } from './App.styled';
 
 // const KEY = '29563680-7212c18ac3d60535e0c53b281';
 // const reqvest = '';
@@ -8,9 +9,9 @@ import { GlobalStyles } from 'styles';
 
 export const App = () => {
   return (
-    <>
+    <Wraper>
       <Searchbar />
       <GlobalStyles />
-    </>
+    </Wraper>
   );
 };
