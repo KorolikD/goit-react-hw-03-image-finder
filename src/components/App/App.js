@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { GlobalStyles } from 'styles';
-import { Wraper } from './App.styled';
+import { AppWraper } from './App.styled';
 
 import { fetchImagesWithQuery } from 'helpers/api';
 import { trimString } from 'helpers/trimString';
@@ -81,7 +81,7 @@ export class App extends Component {
     const { images, isLoading, totalPages, page } = this.state;
 
     return (
-      <Wraper>
+      <AppWraper>
         <Searchbar onSubmit={this.handleSearchSubmit} />
 
         <Toaster position="top-right" reverseOrder={false} />
@@ -95,7 +95,7 @@ export class App extends Component {
         ) : null}
 
         <GlobalStyles />
-      </Wraper>
+      </AppWraper>
     );
   }
 }

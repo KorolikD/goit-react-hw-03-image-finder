@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wraper = styled.div`
+export const AppWraper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
