@@ -1,42 +1,67 @@
 import React, { Component } from 'react';
-import { Searchbar } from 'components/Searchbar/Searchbar';
 import { GlobalStyles } from 'styles';
 import { Wraper } from './App.styled';
 
 import { fetchImagesWithQuery } from 'helpers';
-import { Loader } from 'components/Loader/Loader';
-import { GalleryList } from 'components/ImageGallery/ImageGallery.styled';
+import { Searchbar, ImageGallery, Loader } from 'components';
+
+//Обробка помилки
+import toast, { Toaster } from 'react-hot-toast';
 
 export class App extends Component {
   state = {
     images: [],
-    isLoading: false,
-    error: null,
+    isLoading: false, // done
+    error: false, // done
     page: 1,
+    totalPages: 1,
+    imagesOnBoard: 12,
   };
 
   async componentDidMount() {
+    const { page, imagesOnBoard } = this.state;
+
     try {
-      const images = await fetchImagesWithQuery('cat', this.state.page);
-      this.setState({ images: [...images.hits] });
+      //! завжди скидуємо помилку (error: false) перед кожним HTTP запитом
+      this.setState({ isLoading: true, error: false });
+
+      const initialImages = await fetchImagesWithQuery(
+        'sari', // запит
+        page, // поточна сторінка
+        imagesOnBoard //кількість фото на сторінці
+      );
+
+      this.setState({
+        images: initialImages.hits,
+        totalPages: Math.ceil(initialImages.totalHits / imagesOnBoard),
+      });
     } catch (error) {
-      this.setState({ error });
+      this.setState({ error: true });
+      toast.error(
+        'Упс! Щось пішло не так! Спробуйте перезавантажити сторінку.😉'
+      );
     } finally {
       this.setState({ isLoading: false });
     }
   }
-  componentDidUpdate(prevProps, prevState) {}
+  async componentDidUpdate(prevProps, prevState) {
+    // if (prevState.images.length !== 0) {
+    //   const images = await fetchImagesWithQuery('cat', this.state.page);
+    //   this.setState(prevState => ({
+    //     images: [...prevState.images, ...images.hits],
+    //   }));
+    // }
+  }
 
   render() {
-    const { images, isLoading } = this.state;
-    console.log(images);
-
+    const { images, isLoading, error } = this.state;
+    console.log(this.state);
     return (
       <Wraper>
         <Searchbar />
         {isLoading && <Loader />}
-        {images && <GalleryList images={images} />}
-
+        {images.length > 0 ? <ImageGallery images={images} /> : null}
+        {error && <Toaster position="top-center" reverseOrder={false} />}
         <GlobalStyles />
       </Wraper>
     );
