@@ -1,18 +1,42 @@
 import React from 'react';
-import { ModalWindow, Overlay } from './Modal.styled';
-import ReactModal from 'react-modal';
+import { ModalImageWraper } from './Modal.styled';
+import Modal from 'react-modal';
 
-// Під час кліку на елемент галереї повинно відкриватися модальне вікно з темним оверлеєм
-// і відображатися велика версія зображення.Модальне вікно повинно закриватися по натисканню
-// клавіші ESC або по кліку на оверлеї.
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    zIndex: '1200',
+  },
 
-// Зовнішній вигляд схожий на функціонал цього VanillaJS-плагіна, тільки замість білого модального
-//  вікна рендериться зображення(у прикладі натисніть Run).Анімацію робити не потрібно!
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
-export const Modal = () => (
-  <Overlay>
-    <ModalWindow>
-      <img src="" alt="" />
-    </ModalWindow>
-  </Overlay>
+Modal.setAppElement('#root');
+
+export const ModalImage = ({ onClose, isModalOpen, largeImageURL, tags }) => (
+  <Modal
+    isOpen={isModalOpen}
+    onRequestClose={onClose}
+    style={customStyles}
+    contentLabel="Imagecard Modal"
+  >
+    <ModalImageWraper>
+      <img src={largeImageURL} alt={tags} />
+    </ModalImageWraper>
+  </Modal>
 );
