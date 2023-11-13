@@ -1,5 +1,6 @@
 import React from 'react';
 import { ModalWindow, Overlay } from './Modal.styled';
+import ReactModal from 'react-modal';
 
 // Під час кліку на елемент галереї повинно відкриватися модальне вікно з темним оверлеєм
 // і відображатися велика версія зображення.Модальне вікно повинно закриватися по натисканню
