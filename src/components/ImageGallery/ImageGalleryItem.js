@@ -5,12 +5,8 @@ import { ModalImage } from 'components/Modal/Modal';
 export class ImageGalleryItem extends Component {
   state = { isModalOpen: false };
 
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  };
-
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
+  toggleModal = () => {
+    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   };
 
   render() {
@@ -22,13 +18,13 @@ export class ImageGalleryItem extends Component {
         <GalleryItemImage
           src={largeImageURL}
           alt={tags}
-          onClick={this.openModal}
+          onClick={this.toggleModal}
         />
 
         <ModalImage
           largeImageURL={largeImageURL}
           tags={tags}
-          onClose={this.closeModal}
+          onClose={this.toggleModal}
           isModalOpen={isModalOpen}
         />
       </GalleryItem>
